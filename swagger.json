@@ -1,0 +1,157 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Forms Api",
+    "description": "Test task",
+    "contact": {
+      "name": "Ilya Zabozlaev",
+      "url": "https://zabozlaev.codes",
+      "email": "snickeycs@gmail.com"
+    },
+    "version": "1.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/forms": {
+      "get": {
+        "tags": ["forms"],
+        "summary": "List forms",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit to use",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset to use",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of forms",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Form"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["forms"],
+        "summary": "Create form",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created form object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/CreateForm"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Form was successfuly created"
+          },
+          "422": {
+            "description": "Bad for body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/BaseError"
+            }
+          },
+          "429": {
+            "description": "Too many forms per ip",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/BaseError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseError": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer"
+        }
+      }
+    },
+    "CreateForm": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "required": true
+        },
+        "phone": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Form": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "ip_addr": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
