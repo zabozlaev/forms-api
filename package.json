@@ -1,0 +1,39 @@
+{
+  "name": "forms-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -L --exec babel-node src/",
+    "build": "babel src --out-dir dist",
+    "start": "npm run build && node dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zabozlaev/forms-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zabozlaev/forms-api/issues"
+  },
+  "homepage": "https://github.com/zabozlaev/forms-api#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "mysql2": "^2.1.0",
+    "pino": "^5.17.0"
+  }
+}

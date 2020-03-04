@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  database:
+    image: mysql:latest
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: formsdev
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+      - version=1.0
+      - PORT=4000
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: always
+    ports:
+      - '4444:4000'
+    depends_on:
+      - database
