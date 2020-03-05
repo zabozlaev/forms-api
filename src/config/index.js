@@ -8,6 +8,12 @@ const config = {
     host: process.env.DB_HOST,
   },
   formsPerIpLimit: +process.env.FORMS_LIMIT || 10,
+  rateLimitTime: process.env.FORMS_LIMIT_DELAY || 2 * 60 * 1000,
+  redis: {
+    host: process.env.REDIS_HOST || 'redis_db',
+    port: +process.env.REDIS_PORT || 6379,
+    password: process.env.REDIS_PASS || '',
+  },
 };
 
 export default config;
